@@ -10,12 +10,13 @@ def create_user(connection, user_data):
     cursor.close()
 def get_users(connection, id):
     cursor = connection.cursor()
-    query = "SELECT * FROM users where id= %s;" % (id);
+    query = "SELECT * FROM users where user_id= %s;" % (id);
     cursor.execute(query)
 
     records = []
-    for (name,email, password, address, phone) in cursor:
+    for (user_id ,name,email, password, address, phone) in cursor:
         records.append({
+            'user_id': user_id,
             'customer_name':  name,
             'email': email,
             'pass': password,
@@ -30,23 +31,23 @@ def get_users(connection, id):
 
 if __name__ == '__main__':
     connection = get_sql_connection() 
-    name = input("Enter your name: ")
-    email = input("Enter your email: ")
-    password = input("Enter your password: ")
-    address = input("Enter your address: ")
-    phone = input("Enter your phone number: ")
+    # name = input("Enter your name: ")
+    # email = input("Enter your email: ")
+    # password = input("Enter your password: ")
+    # address = input("Enter your address: ")
+    # phone = input("Enter your phone number: ")
  
-    user_data = {
-        'name': name,
-        'email': email,
-        'password': password,
-        'address': address,
-        'phone': phone
-    }
+    # user_data = {
+    #     'name': name,
+    #     'email': email,
+    #     'password': password,
+    #     'address': address,
+    #     'phone': phone
+    # }
 
-    create_user(connection, user_data)
+    # create_user(connection, user_data)
 
-    print("User created successfully!")
+    # print("User created successfully!")
 
     print(get_users(connection,1))
     connection.close()
