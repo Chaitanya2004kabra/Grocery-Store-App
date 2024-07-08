@@ -1,4 +1,4 @@
-from sql_connection import get_sql_connection
+from connection import get_sql_connection
 def create_user(connection, user_data):
     cursor = connection.cursor()
     query = ("INSERT INTO users "
