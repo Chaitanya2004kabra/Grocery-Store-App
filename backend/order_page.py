@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from connection import get_sql_connection
 
 def get_all_products(connection):
@@ -14,6 +16,19 @@ def get_all_products(connection):
             'measurement': measurement
         })
     return response
+
+def insert_order(connection, order):
+    cursor = connection.cursor()
+    order_query = "INSERT INTO orders (order_date) VALUES (%s)"
+    cursor.execute(order_query, (datetime.now(),))
+    order_id = cursor.lastrowid
+
+    order_item_query = "INSERT INTO order_items (order_id, product_id, quantity, price) VALUES (%s, %s, %s, %s)"
+    for item in order:
+        cursor.execute(order_item_query, (order_id, item['product']['product_id'], item['quantity'], item['product']['price']))
+
+    connection.commit()
+    return order_id
 
 def main():
     connection = get_sql_connection()
@@ -52,6 +67,9 @@ def main():
         print(f"{product['product_name']}: {quantity} {product['measurement']} @ {product['price']} each")
 
     print(f"\nTotal cost: {total}")
+
+    order_id = insert_order(connection, order)
+    print(f"Order ID {order_id} has been placed successfully.")
 
 if __name__ == "__main__":
     main()
