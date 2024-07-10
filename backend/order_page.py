@@ -1,21 +1,8 @@
 from datetime import datetime
-
+from product import get_all_products
 from connection import get_sql_connection
 
-def get_all_products(connection):
-    cursor = connection.cursor()
-    query = "SELECT * FROM products"
-    cursor.execute(query)
-    response = []
-    for (product_id, product_name, price, quantity, measurement) in cursor:
-        response.append({
-            'product_id': product_id,
-            'product_name': product_name,
-            'price': price,
-            'quantity': quantity,
-            'measurement': measurement
-        })
-    return response
+
 
 def insert_order(connection, order):
     cursor = connection.cursor()
@@ -29,6 +16,25 @@ def insert_order(connection, order):
 
     connection.commit()
     return order_id
+
+def update_inventory(connection,order):
+    cursor = connection.cursor()
+    
+    for item in order:
+        product_id = item['product']['product_id']
+        quantity = item['quantity']
+        update_query = "UPDATE products SET inventory = inventory - %s WHERE product_id = %s"
+        cursor.execute(update_query, (quantity, product_id))
+    connection.commit()
+
+def show_inventory(connection):
+    connection = get_sql_connection()
+    products = get_all_products(connection)
+
+    print("remaining inventory")
+    for product in products:
+        print(f"{product['product_id']}: {product['product_name']} inventory {product['inventory']}")
+
 
 def main():
     connection = get_sql_connection()
