@@ -2,12 +2,10 @@ from datetime import datetime
 from product import get_all_products
 from connection import get_sql_connection
 
-
-
-def insert_order(connection, order):
+def insert_order(connection, order, total):
     cursor = connection.cursor()
-    order_query = "INSERT INTO orders (order_date) VALUES (%s)"
-    cursor.execute(order_query, (datetime.now(),))
+    order_query = "INSERT INTO orders (order_date, total) VALUES (%s, %s)"
+    cursor.execute(order_query, (datetime.now(), total))
     order_id = cursor.lastrowid
 
     order_item_query = "INSERT INTO order_items (order_id, product_id, quantity, price) VALUES (%s, %s, %s, %s)"
@@ -17,7 +15,7 @@ def insert_order(connection, order):
     connection.commit()
     return order_id
 
-def update_inventory(connection,order):
+def update_inventory(connection, order):
     cursor = connection.cursor()
     
     for item in order:
@@ -31,10 +29,9 @@ def show_inventory(connection):
     connection = get_sql_connection()
     products = get_all_products(connection)
 
-    print("remaining inventory")
+    print("Remaining inventory:")
     for product in products:
         print(f"{product['product_id']}: {product['product_name']} inventory {product['inventory']}")
-
 
 def main():
     connection = get_sql_connection()
@@ -74,7 +71,9 @@ def main():
 
     print(f"\nTotal cost: {total}")
 
-    order_id = insert_order(connection, order)
+    order_id = insert_order(connection, order, total)
+    update_inventory(connection, order)
+    show_inventory(connection)
     print(f"Order ID {order_id} has been placed successfully.")
 
 if __name__ == "__main__":
