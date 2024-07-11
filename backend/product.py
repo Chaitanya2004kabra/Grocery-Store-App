@@ -42,8 +42,6 @@ if __name__ == '__main__':
     connection = get_sql_connection()
 
     print(get_all_products(connection))
-
-    
     # int(add_into_products(connection, {
     #     'product_name': 'potatoes',
     #     'price': '15',
