@@ -37,7 +37,7 @@ def main(customer_id):
     connection = get_sql_connection()
     products = get_all_products(connection)
 
-    print("Available products:")
+    print("\nAvailable products:")
     for product in products:
         print(f"{product['product_id']}: {product['product_name']} - {product['price']} per {product['measure_name']}")
 
@@ -45,10 +45,10 @@ def main(customer_id):
     order = []
 
     while True:
-        product_id = input("Enter the product ID you want to order (or 'done' to finish): ")
+        product_id = input("\nEnter the product ID you want to order (or 'done' to finish): ")
         if product_id.lower() == 'done':
             break
-
+        
         try:
             product_id = int(product_id)
             product = next((p for p in products if p['product_id'] == product_id), None)
@@ -56,7 +56,19 @@ def main(customer_id):
                 print("Product not found.")
                 continue
 
-            quantity = int(input(f"Enter the quantity for {product['product_name']}: "))
+            if product['inventory'] == 0:
+                print(f"Warning: {product['product_name']} is out of stock.")
+                continue
+
+            quantity = int(input(f"Enter the quantity for {product['product_name']}(available: {product['inventory']}): "))
+
+            if quantity <= 0:
+                print("Quantity must be greater than zero.")
+                continue
+            if quantity > product['inventory']:
+                print(f"Warning: Insufficient inventory for {product['product_name']}. Available quantity: {product['inventory']}.")
+                continue
+
             order.append({'product': product, 'quantity': quantity})
             total += product['price'] * quantity
 
@@ -74,6 +86,7 @@ def main(customer_id):
     order_id = insert_order(connection, order, total, customer_id)
     update_inventory(connection, order)
     print(f"Order ID {order_id} has been placed successfully.")
+
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
