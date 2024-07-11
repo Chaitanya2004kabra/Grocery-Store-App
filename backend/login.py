@@ -1,4 +1,4 @@
-from sql_connection import get_sql_connection
+from connection import get_sql_connection
 def verify_user(connection, email, password):
     cursor=connection.cursor()
     query = "SELECT * FROM users WHERE email = %s AND password = %s;"
