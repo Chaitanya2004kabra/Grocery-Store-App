@@ -1,16 +1,17 @@
+import sys
 from datetime import datetime
 from product import get_all_products
 from connection import get_sql_connection
 
-def insert_order(connection, order, total):
+def insert_order(connection, order, total, customer_id):
     cursor = connection.cursor()
-    order_query = "INSERT INTO orders (order_date, total) VALUES (%s, %s)"
-    cursor.execute(order_query, (datetime.now(), total))
+    order_query = "INSERT INTO orders (order_date, total, customer_id) VALUES (%s, %s, %s)"
+    cursor.execute(order_query, (datetime.now(), total, customer_id))
     order_id = cursor.lastrowid
 
-    order_item_query = "INSERT INTO order_items (order_id, product_id, quantity, price) VALUES (%s, %s, %s, %s)"
+    order_item_query = "INSERT INTO order_items (order_id, product_id, quantity, price, customer_id) VALUES (%s, %s, %s, %s, %s)"
     for item in order:
-        cursor.execute(order_item_query, (order_id, item['product']['product_id'], item['quantity'], item['product']['price']))
+        cursor.execute(order_item_query, (order_id, item['product']['product_id'], item['quantity'], item['product']['price'], customer_id))
 
     connection.commit()
     return order_id
@@ -26,14 +27,13 @@ def update_inventory(connection, order):
     connection.commit()
 
 def show_inventory(connection):
-    connection = get_sql_connection()
     products = get_all_products(connection)
 
     print("Remaining inventory:")
     for product in products:
         print(f"{product['product_id']}: {product['product_name']} inventory {product['inventory']}")
 
-def main():
+def main(customer_id):
     connection = get_sql_connection()
     products = get_all_products(connection)
 
@@ -71,10 +71,19 @@ def main():
 
     print(f"\nTotal cost: {total}")
 
-    order_id = insert_order(connection, order, total)
+    order_id = insert_order(connection, order, total, customer_id)
     update_inventory(connection, order)
     show_inventory(connection)
     print(f"Order ID {order_id} has been placed successfully.")
+
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print("Usage: python order_page.py <customer_id>")
+        sys.exit(1)
+
+    customer_id = sys.argv[1]
+    main(customer_id)
+
 
 if __name__ == "__main__":
     main()
