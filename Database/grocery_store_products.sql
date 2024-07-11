@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `grocery_store` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `grocery_store`;
 -- MySQL dump 10.13  Distrib 8.0.36, for Win64 (x86_64)
 --
 -- Host: localhost    Database: grocery_store
@@ -28,7 +26,7 @@ CREATE TABLE `products` (
   `product_id` int NOT NULL AUTO_INCREMENT,
   `product_name` varchar(100) NOT NULL,
   `price` double NOT NULL,
-  `quantity` int DEFAULT '0',
+  `inventory` int DEFAULT '0',
   `measurement` int NOT NULL,
   PRIMARY KEY (`product_id`),
   UNIQUE KEY `product_name_UNIQUE` (`product_name`),
@@ -43,7 +41,7 @@ CREATE TABLE `products` (
 
 LOCK TABLES `products` WRITE;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
-INSERT INTO `products` VALUES (1,'sugar',40,5,1),(2,'wheat',50.5,10,1),(3,'chips',10,30,2),(4,'shampoo',199.99,10,2),(5,'potatoes',15,30,1);
+INSERT INTO `products` VALUES (1,'sugar',40,7,1),(2,'wheat',50.5,15,1),(3,'chips',10,29,2),(4,'shampoo',199.99,10,2),(5,'potatoes',15,30,1);
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -56,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-07-07 21:53:40
+-- Dump completed on 2024-07-12  1:41:26
