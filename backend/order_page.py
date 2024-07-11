@@ -33,13 +33,14 @@ def show_inventory(connection):
     for product in products:
         print(f"{product['product_id']}: {product['product_name']} inventory {product['inventory']}")
 
+
 def main():
     connection = get_sql_connection()
     products = get_all_products(connection)
 
     print("Available products:")
     for product in products:
-        print(f"{product['product_id']}: {product['product_name']} - {product['price']} per {product['measurement']}")
+        print(f"{product['product_id']}: {product['product_name']} - {product['price']} per {product['measure_name']}")
 
     total = 0
     order = []
@@ -67,13 +68,12 @@ def main():
     for item in order:
         product = item['product']
         quantity = item['quantity']
-        print(f"{product['product_name']}: {quantity} {product['measurement']} @ {product['price']} each")
+        print(f"{product['product_name']}: {quantity} {product['measure_name']} @ {product['price']} each")
 
     print(f"\nTotal cost: {total}")
 
-    order_id = insert_order(connection, order, total)
+    order_id = insert_order(connection, order)
     update_inventory(connection, order)
-    show_inventory(connection)
     print(f"Order ID {order_id} has been placed successfully.")
 
 if __name__ == "__main__":
