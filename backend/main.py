@@ -1,5 +1,5 @@
 from show_and_track_past_orders import get_customer_orders, get_order_id, get_order_status
-from orders import main1
+from orders import main1, cancel_order
 from connection import get_sql_connection
 
 def main():
@@ -11,21 +11,30 @@ def main():
     print("a) Order")
     print("b) Track Order")
     print("c) Show Previous Orders")
+    print("d) Cancel Order")
 
-    choice = input("Enter your choice (a/b/c): ").lower()
+    choice = input("Enter your choice (a/b/c/d): ").lower()
     if choice == 'a':
         main1(customer_id)
     elif choice == 'b':
-        connection=get_sql_connection()
-        print("Here are your orders :")
-        get_order_id(customer_id,connection)
+        connection = get_sql_connection()
+        print("Here are your orders:")
+        get_order_id(customer_id, connection)
         print("-" * 20)
-        order_id = int(input("Enter the order_id you want to track :"))
-        get_order_status(order_id,connection)
+        order_id = int(input("Enter the order ID you want to track: "))
+        get_order_status(order_id, connection)
         connection.close()
     elif choice == 'c':
-        connection=get_sql_connection()
-        get_customer_orders(customer_id,connection)
+        connection = get_sql_connection()
+        get_customer_orders(customer_id, connection)
+        connection.close()
+    elif choice == 'd':
+        connection = get_sql_connection()
+        print("Here are your orders:")
+        get_order_id(customer_id, connection)
+        print("-" * 20)
+        order_id = int(input("Enter the order ID you want to cancel: "))
+        cancel_order(connection, order_id, customer_id)
         connection.close()
     else:
         print("Invalid choice. Please try again.")

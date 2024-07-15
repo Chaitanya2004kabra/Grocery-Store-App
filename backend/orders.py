@@ -18,6 +18,42 @@ def insert_order(connection, order, total, customer_id):
     return order_id
 
 
+def cancel_order(connection, order_id, customer_id):
+    cursor = connection.cursor()
+
+    order_items_query = "SELECT product_id, quantity FROM order_items WHERE order_id = %s"
+    cursor.execute(order_items_query, (order_id,))
+    order_items = cursor.fetchall()
+
+    if not order_items:
+        print(f"No order found with ID {order_id} for customer {customer_id}")
+        return
+
+    order_query = "SELECT customer_id FROM orders WHERE order_id = %s"
+    cursor.execute(order_query, (order_id,))
+    result = cursor.fetchone()
+    if not result or result['customer_id'] != customer_id:
+        print(f"Order ID {order_id} does not belong to customer {customer_id}")
+        return
+
+    # Deliting from order_item table
+    delete_order_items_query = "DELETE FROM order_items WHERE order_id = %s"
+    cursor.execute(delete_order_items_query, (order_id,))
+
+    # del from order table
+    delete_order_query = "DELETE FROM orders WHERE order_id = %s"
+    cursor.execute(delete_order_query, (order_id,))
+
+    # incentory check
+    for item in order_items:
+        product_id = item['product_id']
+        quantity = item['quantity']
+        update_query = "UPDATE products SET inventory = inventory + %s WHERE product_id = %s"
+        cursor.execute(update_query, (quantity, product_id))
+
+    connection.commit()
+    print(f"Order ID {order_id} has been cancelled successfully.")
+
 def update_inventory(connection, order):
     cursor = connection.cursor()
 
