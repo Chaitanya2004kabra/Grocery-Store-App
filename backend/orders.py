@@ -32,22 +32,23 @@ def cancel_order(connection, order_id, customer_id):
     order_query = "SELECT customer_id FROM orders WHERE order_id = %s"
     cursor.execute(order_query, (order_id,))
     result = cursor.fetchone()
-    if not result or result['customer_id'] != customer_id:
+
+    if not result or result[0] != customer_id:
         print(f"Order ID {order_id} does not belong to customer {customer_id}")
         return
 
-    # Deliting from order_item table
+    # Delete from order_item table
     delete_order_items_query = "DELETE FROM order_items WHERE order_id = %s"
     cursor.execute(delete_order_items_query, (order_id,))
 
-    # del from order table
+    # Delete from orders table
     delete_order_query = "DELETE FROM orders WHERE order_id = %s"
     cursor.execute(delete_order_query, (order_id,))
 
-    # incentory check
+    # Update inventory
     for item in order_items:
-        product_id = item['product_id']
-        quantity = item['quantity']
+        product_id = item[0]
+        quantity = item[1]
         update_query = "UPDATE products SET inventory = inventory + %s WHERE product_id = %s"
         cursor.execute(update_query, (quantity, product_id))
 
