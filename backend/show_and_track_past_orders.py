@@ -27,7 +27,6 @@ def get_customer_orders(customer_id,connection):
             status = 'Delivery in transit'
         print(f"Your order for {product_name} is {status}")
     cursor.close()
-    connection.close()
 
 
 def get_order_status(order_id,connection):
@@ -56,7 +55,6 @@ def get_order_status(order_id,connection):
             status = "in transit"
         print(f"Your order for {product_name} is {status}")
     cursor.close()
-    connection.close()
 
 
 def get_order_id(customer_id,connection):
