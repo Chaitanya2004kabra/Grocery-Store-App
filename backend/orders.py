@@ -1,4 +1,3 @@
-
 from datetime import datetime
 from product import get_all_products
 from connection import get_sql_connection
@@ -24,7 +23,6 @@ def cancel_order(connection, order_id, customer_id):
     order_items_query = "SELECT product_id, quantity FROM order_items WHERE order_id = %s"
     cursor.execute(order_items_query, (order_id,))
     order_items = cursor.fetchall()
-
     if not order_items:
         print(f"No order found with ID {order_id} for customer {customer_id}")
         return
@@ -55,6 +53,7 @@ def cancel_order(connection, order_id, customer_id):
     connection.commit()
     print(f"Order ID {order_id} has been cancelled successfully.")
 
+
 def update_inventory(connection, order):
     cursor = connection.cursor()
 
@@ -74,8 +73,7 @@ def show_inventory(connection):
         print(f"{product['product_id']}: {product['product_name']} inventory {product['inventory']}")
 
 
-def main1(customer_id):
-    connection = get_sql_connection()
+def main1(customer_id, connection):
     products = get_all_products(connection)
 
     print("\nAvailable products:")
@@ -101,13 +99,15 @@ def main1(customer_id):
                 print(f"Warning: {product['product_name']} is out of stock.")
                 continue
 
-            quantity = int(input(f"Enter the quantity for {product['product_name']} (available: {product['inventory']}): "))
+            quantity = int(
+                input(f"Enter the quantity for {product['product_name']} (available: {product['inventory']}): "))
 
             if quantity <= 0:
                 print("Quantity must be greater than zero.")
                 continue
             if quantity > product['inventory']:
-                print(f"Warning: Insufficient inventory for {product['product_name']}. Available quantity: {product['inventory']}.")
+                print(
+                    f"Warning: Insufficient inventory for {product['product_name']}. Available quantity: {product['inventory']}.")
                 continue
 
             order.append({'product_id': product_id, 'quantity': quantity, 'price': product['price']})
@@ -127,4 +127,4 @@ def main1(customer_id):
     order_id = insert_order(connection, order, total, customer_id)
     update_inventory(connection, order)
     print(f"Order ID {order_id} has been placed successfully.")
-
+    #connection.close()
