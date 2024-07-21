@@ -3,29 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <title>Order Products</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #EBE9EI; /* Light background color */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            width: 80%;
+            max-width: 1000px; /* Limit the width for larger screens */
+            padding: 20px;
+            background-color: #FFFFFF; /* White background for the container */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            text-align: center;
+        }
+        h1 {
+            color: #E43D12; /* Heading color */
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #cccccc;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #FFA2B6; /* Header background color */
+            color: #FFFFFF; /* Header text color */
+        }
+        input[type="number"] {
+            width: 80px;
+            padding: 5px;
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+            text-align: center;
+        }
+        button {
+            background-color: #EFB11D; /* Button background color */
+            color: #FFFFFF; /* Button text color */
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #E43D12; /* Button hover background color */
+        }
+    </style>
 </head>
 <body>
-    <h1>Order Products</h1>
-    <form action="{{ url_for('checkout') }}" method="POST">
-        <table>
-            <tr>
-                <th>Product</th>
-                <th>Price</th>
-                <th>Inventory</th>
-                <th>Quantity</th>
-            </tr>
-            {% for product in products %}
-            <tr>
-                <td>{{ product.product_name }}</td>
-                <td>{{ product.price }}</td>
-                <td>{{ product.inventory }}</td>
-                <td>
-                    <input type="number" name="quantity_{{ product.product_id }}" min="0" max="{{ product.inventory }}" value="0">
-                </td>
-            </tr>
-            {% endfor %}
-        </table>
-        <button type="submit">Proceed to Checkout</button>
-    </form>
+    <div class="container">
+        <h1>Order Products</h1>
+        <form action="{{ url_for('checkout') }}" method="POST">
+            <table>
+                <tr>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Inventory</th>
+                    <th>Quantity</th>
+                </tr>
+                {% for product in products %}
+                <tr>
+                    <td>{{ product.product_name }}</td>
+                    <td>{{ product.price }}</td>
+                    <td>{{ product.inventory }}</td>
+                    <td>
+                        <input type="number" name="quantity_{{ product.product_id }}" min="0" max="{{ product.inventory }}" value="0">
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+            <button type="submit">Proceed to Checkout</button>
+        </form>
+    </div>
 </body>
 </html>
