@@ -2,14 +2,76 @@
 <html>
 <head>
     <title>Track Order</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #EBE9EI; /* Light background color */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            width: 80%;
+            max-width: 600px; /* Limit the width for larger screens */
+            padding: 20px;
+            background-color: #FFFFFF; /* White background for the container */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            text-align: center;
+        }
+        h1 {
+            color: #E43D12; /* Heading color */
+            margin-bottom: 20px;
+        }
+        label {
+            font-size: 18px;
+            color: #333333;
+            display: block;
+            margin-bottom: 10px;
+        }
+        input[type="text"] {
+            width: calc(100% - 22px); /* Adjust width to fit padding */
+            padding: 10px;
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        button {
+            background-color: #D6536D; /* Button background color */
+            color: #FFFFFF; /* Button text color */
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #E43D12; /* Button hover color */
+        }
+        a {
+            text-decoration: none;
+            color: #D6536D; /* Link color */
+            font-size: 16px;
+            display: inline-block;
+            margin-top: 20px;
+        }
+        a:hover {
+            color: #E43D12; /* Link hover color */
+        }
+    </style>
 </head>
 <body>
-    <h1>Track Your Order</h1>
-    <form method="post">
-        <label for="order_id">Order ID:</label>
-        <input type="text" id="order_id" name="order_id" required><br>
-        <button type="submit">Track Order</button>
-    </form>
-    <a href="{{ url_for('home') }}">Back to Home</a>
+    <div class="container">
+        <h1>Track Your Order</h1>
+        <form method="post">
+            <label for="order_id">Order ID:</label>
+            <input type="text" id="order_id" name="order_id" required>
+            <button type="submit">Track Order</button>
+        </form>
+        <a href="{{ url_for('home') }}">Back to Home</a>
+    </div>
 </body>
 </html>
