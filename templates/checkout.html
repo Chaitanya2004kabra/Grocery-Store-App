@@ -3,29 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <title>Checkout</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #EBE9EI; /* Light background color */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+            background-color: #FFFFFF; /* White background for the container */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            width: 80%;
+            max-width: 800px; /* Limit the width for larger screens */
+        }
+        h1 {
+            color: #E43D12; /* Heading color */
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #cccccc;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #FFA2B6; /* Header background color */
+            color: #FFFFFF; /* Header text color */
+        }
+        button {
+            background-color: #EFB11D; /* Button background color */
+            color: #FFFFFF; /* Button text color */
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #E43D12; /* Button hover background color */
+        }
+        p {
+            font-size: 18px;
+            color: #333333;
+            margin: 20px 0;
+        }
+    </style>
 </head>
 <body>
-    <h1>Checkout</h1>
-    <form action="{{ url_for('confirm_order') }}" method="POST">
-        <table>
-            <tr>
-                <th>Product</th>
-                <th>Quantity</th>
-                <th>Price</th>
-                <th>Total</th>
-            </tr>
-            {% for item in items %}
-            <tr>
-                <td>{{ item.product_name }}</td>
-                <td>{{ item.quantity }}</td>
-                <td>{{ item.price }}</td>
-                <td>{{ item.total_price }}</td>
-                <input type="hidden" name="quantity_{{ item.product_id }}" value="{{ item.quantity }}">
-            </tr>
-            {% endfor %}
-        </table>
-        <p>Total: {{ total }}</p>
-        <button type="submit">Place Order</button>
-    </form>
+    <div class="container">
+        <h1>Checkout</h1>
+        <form action="{{ url_for('confirm_order') }}" method="POST">
+            <table>
+                <tr>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                </tr>
+                {% for item in items %}
+                <tr>
+                    <td>{{ item.product_name }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.price }}</td>
+                    <td>{{ item.total_price }}</td>
+                    <input type="hidden" name="quantity_{{ item.product_id }}" value="{{ item.quantity }}">
+                </tr>
+                {% endfor %}
+            </table>
+            <p>Total: {{ total }}</p>
+            <button type="submit">Place Order</button>
+        </form>
+    </div>
 </body>
 </html>
