@@ -3,46 +3,84 @@
 <head>
     <title>Order Status</title>
     <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #EBE9EI; /* Light background color */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            width: 80%;
+            max-width: 800px; /* Limit the width for larger screens */
+            padding: 20px;
+            background-color: #FFFFFF; /* White background for the container */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            text-align: center;
+        }
+        h1 {
+            color: #E43D12; /* Heading color */
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 18px;
+            color: #333333;
+        }
         table {
             width: 100%;
             border-collapse: collapse;
+            margin: 20px 0;
         }
-
         table, th, td {
-            border: 1px solid black;
+            border: 1px solid #cccccc;
         }
-
         th, td {
             padding: 15px;
             text-align: left;
         }
-
         th {
-            background-color: #f2f2f2;
+            background-color: #FFA2B6; /* Header background color */
+            color: #FFFFFF; /* Header text color */
+        }
+        a {
+            text-decoration: none;
+            color: #D6536D; /* Link color */
+            font-size: 16px;
+            display: inline-block;
+            margin-top: 20px;
+        }
+        a:hover {
+            color: #E43D12; /* Link hover color */
         }
     </style>
 </head>
 <body>
-    <h1>Order Status</h1>
-    {% if error %}
-        <p>{{ error }}</p>
-    {% else %}
-        <p>Order ID: {{ order_id }}</p>
-        <h2>Order Details</h2>
-        <table>
-            <tr>
-                <th>Product Name</th>
-                <th>Status</th>
-            </tr>
-            {% for item in order_details %}
-            <tr>
-                <td>{{ item.product_name }}</td>
-                <td>{{ item.status }}</td>
-            </tr>
-            {% endfor %}
-        </table>
-    {% endif %}
-    <br><br>
-    <a href="{{ url_for('home') }}">Back to Home</a>
+    <div class="container">
+        <h1>Order Status</h1>
+        {% if error %}
+            <p>{{ error }}</p>
+        {% else %}
+            <p>Order ID: {{ order_id }}</p>
+            <h2>Order Details</h2>
+            <table>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Status</th>
+                </tr>
+                {% for item in order_details %}
+                <tr>
+                    <td>{{ item.product_name }}</td>
+                    <td>{{ item.status }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        {% endif %}
+        <br><br>
+        <a href="{{ url_for('home') }}">Back to Home</a>
+    </div>
 </body>
 </html>
