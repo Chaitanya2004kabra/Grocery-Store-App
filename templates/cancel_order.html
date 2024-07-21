@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cancel Order</title>
+</head>
+<body>
+    <h1>Cancel Your Order</h1>
+    <form method="post">
+        <label for="order_id">Order ID:</label>
+        <input type="text" id="order_id" name="order_id" required><br>
+        <button type="submit">Cancel Order</button>
+    </form>
+    <a href="{{ url_for('home') }}">Back to Home</a>
+</body>
+</html>

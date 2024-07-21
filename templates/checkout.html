@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Checkout</title>
+</head>
+<body>
+    <h1>Checkout</h1>
+    <form action="{{ url_for('confirm_order') }}" method="POST">
+        <table>
+            <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Total</th>
+            </tr>
+            {% for item in items %}
+            <tr>
+                <td>{{ item.product_name }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ item.price }}</td>
+                <td>{{ item.total_price }}</td>
+                <input type="hidden" name="quantity_{{ item.product_id }}" value="{{ item.quantity }}">
+            </tr>
+            {% endfor %}
+        </table>
+        <p>Total: {{ total }}</p>
+        <button type="submit">Place Order</button>
+    </form>
+</body>
+</html>

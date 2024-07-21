@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Previous Orders</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .order-table {
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Previous Orders</h1>
+    {% if orders %}
+        {% set current_order_date = None %}
+        {% for order in orders %}
+            {% if current_order_date != order.order_date %}
+                <h2>Order Date: {{ order.order_date.strftime('%Y-%m-%d %H:%M:%S') }}</h2>
+                {% set current_order_date = order.order_date %}
+            {% endif %}
+            <table class="order-table">
+                <tr>
+                    <th>Product Name</th>
+                    <th>Status</th>
+                </tr>
+                <tr>
+                    <td>{{ order.product_name }}</td>
+                    <td>{{ order.status }}</td>
+                </tr>
+            </table>
+        {% endfor %}
+    {% else %}
+        <p>No previous orders found.</p>
+    {% endif %}
+    <br><br>
+    <a href="{{ url_for('home') }}">Back to Home</a>
+</body>
+</html>
