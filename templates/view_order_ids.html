@@ -2,21 +2,75 @@
 <html>
 <head>
     <title>View Orders</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #EBE9EI; /* Light background color */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            width: 80%;
+            max-width: 600px; /* Limit the width for larger screens */
+            padding: 20px;
+            background-color: #FFFFFF; /* White background for the container */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            text-align: center;
+        }
+        h1 {
+            color: #E43D12; /* Heading color */
+            margin-bottom: 20px;
+        }
+        ul {
+            list-style-type: none; /* Remove default list styling */
+            padding: 0;
+            margin: 0;
+        }
+        li {
+            background-color: #FFA2B6; /* List item background color */
+            color: #FFFFFF; /* List item text color */
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        p {
+            font-size: 18px;
+            color: #333333;
+        }
+        a {
+            text-decoration: none;
+            color: #D6536D; /* Link color */
+            font-size: 16px;
+            display: inline-block;
+            margin-top: 20px;
+        }
+        a:hover {
+            color: #E43D12; /* Link hover color */
+        }
+    </style>
 </head>
 <body>
-    <h1>Your Orders</h1>
+    <div class="container">
+        <h1>Your Orders</h1>
 
-    {% if orders %}
-        <ul>
-            {% for order in orders %}
-                <li>Order ID: {{ order.order_id }}, Product Name: {{ order.product_name }}</li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No orders found.</p>
-    {% endif %}
+        {% if orders %}
+            <ul>
+                {% for order in orders %}
+                    <li>Order ID: {{ order.order_id }}, Product Name: {{ order.product_name }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No orders found.</p>
+        {% endif %}
 
-    <br><br>
-    <a href="{{ url_for('home') }}">Back to Home</a>
+        <br><br>
+        <a href="{{ url_for('home') }}">Back to Home</a>
+    </div>
 </body>
 </html>
+
