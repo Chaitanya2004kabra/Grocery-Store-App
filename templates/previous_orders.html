@@ -3,53 +3,91 @@
 <head>
     <title>Previous Orders</title>
     <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #EBE9EI; /* Light background color */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            width: 80%;
+            max-width: 1000px; /* Limit the width for larger screens */
+            padding: 20px;
+            background-color: #FFFFFF; /* White background for the container */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            text-align: center;
+        }
+        h1 {
+            color: #E43D12; /* Heading color */
+            margin-bottom: 20px;
+        }
+        h2 {
+            color: #D6536D; /* Subheading color */
+            margin-bottom: 15px;
+        }
         table {
             width: 100%;
             border-collapse: collapse;
+            margin-bottom: 30px;
         }
-
         table, th, td {
-            border: 1px solid black;
+            border: 1px solid #cccccc; /* Light border color */
         }
-
         th, td {
             padding: 15px;
             text-align: left;
         }
-
         th {
-            background-color: #f2f2f2;
+            background-color: #FFA2B6; /* Header background color */
+            color: #FFFFFF; /* Header text color */
         }
-
-        .order-table {
-            margin-bottom: 30px;
+        p {
+            font-size: 18px;
+            color: #333333;
+        }
+        a {
+            text-decoration: none;
+            color: #D6536D; /* Link color */
+            font-size: 16px;
+            display: inline-block;
+            margin-top: 20px;
+        }
+        a:hover {
+            color: #E43D12; /* Link hover color */
         }
     </style>
 </head>
 <body>
-    <h1>Previous Orders</h1>
-    {% if orders %}
-        {% set current_order_date = None %}
-        {% for order in orders %}
-            {% if current_order_date != order.order_date %}
-                <h2>Order Date: {{ order.order_date.strftime('%Y-%m-%d %H:%M:%S') }}</h2>
-                {% set current_order_date = order.order_date %}
-            {% endif %}
-            <table class="order-table">
-                <tr>
-                    <th>Product Name</th>
-                    <th>Status</th>
-                </tr>
-                <tr>
-                    <td>{{ order.product_name }}</td>
-                    <td>{{ order.status }}</td>
-                </tr>
-            </table>
-        {% endfor %}
-    {% else %}
-        <p>No previous orders found.</p>
-    {% endif %}
-    <br><br>
-    <a href="{{ url_for('home') }}">Back to Home</a>
+    <div class="container">
+        <h1>Previous Orders</h1>
+        {% if orders %}
+            {% set current_order_date = None %}
+            {% for order in orders %}
+                {% if current_order_date != order.order_date %}
+                    <h2>Order Date: {{ order.order_date.strftime('%Y-%m-%d %H:%M:%S') }}</h2>
+                    {% set current_order_date = order.order_date %}
+                {% endif %}
+                <table class="order-table">
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Status</th>
+                    </tr>
+                    <tr>
+                        <td>{{ order.product_name }}</td>
+                        <td>{{ order.status }}</td>
+                    </tr>
+                </table>
+            {% endfor %}
+        {% else %}
+            <p>No previous orders found.</p>
+        {% endif %}
+        <br><br>
+        <a href="{{ url_for('home') }}">Back to Home</a>
+    </div>
 </body>
 </html>
