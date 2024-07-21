@@ -2,14 +2,83 @@
 <html>
 <head>
     <title>Cancel Order</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #EBE9EI; /* Light background color */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+            background-color: #FFFFFF; /* White background for the container */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            width: 80%;
+            max-width: 400px; /* Limit the width for larger screens */
+        }
+        h1 {
+            color: #E43D12; /* Heading color */
+            margin-bottom: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        label {
+            margin-top: 10px;
+            font-size: 16px;
+            color: #333333;
+            display: block;
+        }
+        input {
+            margin: 5px 0 20px;
+            padding: 10px;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            width: 100%;
+            max-width: 350px; /* Limit input width */
+        }
+        button {
+            background-color: #EFB11D; /* Button background color */
+            color: #FFFFFF; /* Button text color */
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #E43D12; /* Button hover background color */
+        }
+        a {
+            text-decoration: none;
+            color: #D6536D; /* Link color */
+            display: inline-block;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+        a:hover {
+            color: #E43D12; /* Link hover color */
+        }
+    </style>
 </head>
 <body>
-    <h1>Cancel Your Order</h1>
-    <form method="post">
-        <label for="order_id">Order ID:</label>
-        <input type="text" id="order_id" name="order_id" required><br>
-        <button type="submit">Cancel Order</button>
-    </form>
-    <a href="{{ url_for('home') }}">Back to Home</a>
+    <div class="container">
+        <h1>Cancel Your Order</h1>
+        <form method="post">
+            <label for="order_id">Order ID:</label>
+            <input type="text" id="order_id" name="order_id" required><br>
+            <button type="submit">Cancel Order</button>
+        </form>
+        <a href="{{ url_for('home') }}">Back to Home</a>
+    </div>
 </body>
 </html>
