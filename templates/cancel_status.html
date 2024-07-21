@@ -2,12 +2,53 @@
 <html>
 <head>
     <title>Cancel Order Status</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #EBE9EI; /* Light background color */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+            background-color: #FFFFFF; /* White background for the container */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            width: 80%;
+            max-width: 500px; /* Limit the width for larger screens */
+        }
+        h1 {
+            color: #E43D12; /* Heading color */
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 18px;
+            color: #333333;
+            margin: 20px 0;
+        }
+        a {
+            text-decoration: none;
+            color: #D6536D; /* Link color */
+            display: inline-block;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+        a:hover {
+            color: #E43D12; /* Link hover color */
+        }
+    </style>
 </head>
 <body>
-    <h1>Cancel Order Status</h1>
-    <p>{{ message }}</p>
-    <br><br>
-    <a href="{{ url_for('home') }}">Back to Home</a>
+    <div class="container">
+        <h1>Cancel Order Status</h1>
+        <p>{{ message }}</p>
+        <a href="{{ url_for('home') }}">Back to Home</a>
+    </div>
 </body>
 </html>
 
