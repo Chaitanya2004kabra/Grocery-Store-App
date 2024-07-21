@@ -2,10 +2,65 @@
 <html>
 <head>
     <title>GroceryMart</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('/static/hpbg.jpg'); /* Path to your image */
+            background-size: cover; /* Cover the entire page */
+            background-position: center; /* Center the image */
+            background-repeat: no-repeat; /* Ensure the image doesn’t repeat */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent white */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h1 {
+            color: #E43D12; /* Main color for headings */
+            margin-bottom: 30px;
+        }
+        a {
+            text-decoration: none;
+            font-size: 18px;
+            display: inline-block;
+            margin: 10px 20px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .signup {
+            color: #D6536D; /* Text color for Sign Up link */
+            background-color: #FFA2B6; /* Background color for Sign Up link */
+        }
+        .login {
+            color: #EFB11D; /* Text color for Log In link */
+            background-color: #EBE9EI; /* Background color for Log In link */
+        }
+        a:hover {
+            color: #FFFFFF;
+        }
+        .signup:hover {
+            background-color: #E43D12; /* Hover background color for Sign Up link */
+        }
+        .login:hover {
+            background-color: #D6536D; /* Hover background color for Log In link */
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome to GroceryMart!</h1>
-    <a href="{{ url_for('signup') }}">Sign Up</a>
-    <a href="{{ url_for('login') }}">Log In</a>
+    <div class="container">
+        <h1>Welcome to GroceryMart!</h1>
+        <a href="{{ url_for('signup') }}" class="signup">Sign Up</a>
+        <a href="{{ url_for('login') }}" class="login">Log In</a>
+    </div>
 </body>
 </html>
+
