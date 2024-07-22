@@ -131,8 +131,8 @@ def confirm_order():
     order_id = insert_order(connection, items, total, session['customer_id'])
     update_inventory(connection, items)
 
-
-    return f"Order ID {order_id} has been placed successfully.<br><a href='{url_for('home')}'>Back to home</a>"
+    return render_template('order_status1.html',order_id=order_id)
+    #return f"Order ID {order_id} has been placed successfully.<br><a href='{url_for('home')}'>Back to home</a>"
 
 
 @app.route('/track_order', methods=['GET', 'POST'])
